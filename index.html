@@ -259,6 +259,132 @@
             document.getElementById('content-title').innerText = info.title;
             document.getElementById('content-body').innerHTML = info.body;
         }
+        <div class="faq-container">
+    <div class="faq-header">
+        <h3>Reflexión y Cierre</h3>
+        <p>Sistema Táctico Básico Policial</p>
+    </div>
+    
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+        <div class="faq-question">
+            <span>¿Cómo influye la integración de estos elementos en la labor policial?</span>
+            <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+            <p>Permite una toma de decisiones más estructurada, garantizando que el uso de la fuerza esté siempre respaldado por la preparación mental, táctica y comunicativa, bajo un marco de total respeto por los derechos humanos y la normativa vigente.</p>
+        </div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+        <div class="faq-question">
+            <span>¿En qué situaciones prácticas puede aplicar estas relaciones?</span>
+            <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+            <p>Se aplican en procedimientos de control de multitudes, intervenciones en flagrancia, reducciones de personas agresivas y resolución de conflictos ciudadanos donde se requiera el uso diferenciado y proporcional de la fuerza.</p>
+        </div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+        <div class="faq-question">
+            <span>¿Qué aspectos del Sistema Táctico Básico requieren mayor estudio y práctica?</span>
+            <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+            <p>El fortalecimiento de la comunicación asertiva para la disuasión verbal y el entrenamiento constante en la transición fluida entre las diferentes armas menos letales y las técnicas de control físico.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.faq-container {
+    max-width: 800px;
+    margin: 30px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fdfdfd;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.faq-header h3 {
+    color: #1b365d;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.faq-header p {
+    color: #555;
+    margin: 5px 0 0 0;
+    font-size: 0.95rem;
+}
+
+.faq-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #1b365d;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(27, 54, 93, 0.08);
+    border-color: #cbd5e1;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 1.05rem;
+}
+
+.faq-icon {
+    font-size: 0.8rem;
+    color: #64748b;
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.faq-item.active {
+    border-left-color: #0ea5e9;
+    background: #f8fafc;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: #0ea5e9;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+    opacity: 1;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px dashed #e2e8f0;
+}
+</style>
     </script>
 </body>
 </html>
