@@ -33,11 +33,11 @@
         }
 
         /* Colores de los círculos */
-        .circle-c1 { background-color: #60a5fa; top: 0; left: 0; } /* Azul */
-        .circle-c2 { background-color: #f87171; top: 0; right: 0; } /* Rojo */
-        .circle-c3 { background-color: #34d399; bottom: 0; left: 60px; } /* Verde */
+        .circle-c1 { background-color: #60a5fa; top: 0; left: 0; }
+        .circle-c2 { background-color: #f87171; top: 0; right: 0; }
+        .circle-c3 { background-color: #34d399; bottom: 0; left: 60px; }
 
-        /* Etiquetas flotantes para identificar zonas e intersecciones */
+        /* Etiquetas flotantes */
         .label {
             position: absolute;
             font-size: 0.75rem;
@@ -48,7 +48,7 @@
             text-align: center;
         }
 
-        /* Botones interactivos para las intersecciones */
+        /* Botones interactivos */
         .intersection-btn {
             position: absolute;
             background: white;
@@ -69,12 +69,11 @@
             transform: scale(1.1);
         }
 
-        /* Posicionamiento específico */
+        /* Posiciones */
         .pos-c1 { top: 60px; left: 40px; }
         .pos-c2 { top: 60px; right: 40px; }
         .pos-c3 { bottom: 40px; left: 140px; }
         
-        /* Posiciones de los botones de intersección */
         .pos-c1c2 { top: 90px; left: 135px; }
         .pos-c1c3 { top: 180px; left: 80px; }
         .pos-c2c3 { top: 180px; right: 80px; }
@@ -82,6 +81,82 @@
 
         .fade-in { animation: fadeIn 0.4s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Estilos FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 30px auto;
+            font-family: 'Inter', sans-serif;
+            background: #fdfdfd;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .faq-header { text-align: center; margin-bottom: 25px; }
+        .faq-header h3 { color: #1b365d; margin: 0; font-size: 1.5rem; }
+        .faq-header p { color: #555; margin: 5px 0 0 0; font-size: 0.95rem; }
+
+        .faq-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #1b365d;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 16px 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(27, 54, 93, 0.08);
+            border-color: #cbd5e1;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 1.05rem;
+        }
+
+        .faq-icon {
+            font-size: 0.8rem;
+            color: #64748b;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .faq-item.active {
+            border-left-color: #0ea5e9;
+            background: #f8fafc;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+            color: #0ea5e9;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 12px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
     </style>
 </head>
 <body class="min-h-screen text-gray-800 p-4 sm:p-8">
@@ -95,28 +170,23 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             
-            <!-- Contenedor Izquierdo: Gráfico del Diagrama de Venn -->
+            <!-- Diagrama de Venn -->
             <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center">
                 <div class="venn-container">
-                    
-                    <!-- Círculos Principales -->
                     <div class="circle circle-c1" onclick="showInfo('c1')" title="Principios del Uso de la Fuerza"></div>
                     <div class="circle circle-c2" onclick="showInfo('c2')" title="Componentes del Sistema Táctico"></div>
                     <div class="circle circle-c3" onclick="showInfo('c3')" title="Sistema de Intervención Policial"></div>
 
-                    <!-- Etiquetas de Texto (Solo lectura) -->
                     <div class="label pos-c1 w-20">Principios de la Fuerza</div>
                     <div class="label pos-c2 w-20">Sistema Táctico</div>
                     <div class="label pos-c3 w-24">Sistema de Intervención</div>
 
-                    <!-- Botones de Intersección -->
                     <button class="intersection-btn pos-c1c2" onclick="showInfo('c1c2')">C1+C2</button>
                     <button class="intersection-btn pos-c1c3" onclick="showInfo('c1c3')">C1+C3</button>
                     <button class="intersection-btn pos-c2c3" onclick="showInfo('c2c3')">C2+C3</button>
                     <button class="intersection-btn pos-center text-xs px-3" onclick="showInfo('centro')">Núcleo</button>
                 </div>
 
-                <!-- Leyenda de colores -->
                 <div class="mt-10 grid grid-cols-1 gap-2 text-sm text-gray-600">
                     <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-500"></span> <b>C1:</b> Principios del Uso de la Fuerza</div>
                     <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-500"></span> <b>C2:</b> Sistema Táctico Básico Policial</div>
@@ -124,7 +194,7 @@
                 </div>
             </div>
 
-            <!-- Contenedor Derecho: Panel de Información Dinámica -->
+            <!-- Panel de Información -->
             <div class="bg-white p-8 rounded-2xl shadow-xl min-h-[400px] flex flex-col" id="info-panel">
                 <div class="flex-grow flex flex-col justify-center items-center text-center text-gray-400" id="default-message">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,10 +211,48 @@
             </div>
 
         </div>
+
+        <!-- Preguntas Frecuentes (FAQ) -->
+        <div class="faq-container">
+            <div class="faq-header">
+                <h3>Reflexión y Cierre</h3>
+                <p>Sistema Táctico Básico Policial</p>
+            </div>
+            
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>¿Cómo influye la integración de estos elementos en la labor policial?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Permite una toma de decisiones más estructurada, garantizando que el uso de la fuerza esté siempre respaldado por la preparación mental, táctica y comunicativa, bajo un marco de total respeto por los derechos humanos y la normativa vigente.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>¿En qué situaciones prácticas puede aplicar estas relaciones?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Se aplican en procedimientos de control de multitudes, intervenciones en flagrancia, reducciones de personas agresivas y resolución de conflictos ciudadanos donde se requiera el uso diferenciado y proporcional de la fuerza.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="this.classList.toggle('active')">
+                <div class="faq-question">
+                    <span>¿Qué aspectos del Sistema Táctico Básico requieren mayor estudio y práctica?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>El fortalecimiento de la comunicación asertiva para la disuasión verbal y el entrenamiento constante en la transición fluida entre las diferentes armas menos letales y las técnicas de control físico.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Data base de conocimiento para llenar el panel
         const data = {
             c1: {
                 title: "Principios del Uso de la Fuerza",
@@ -235,156 +343,24 @@
             }
         };
 
-        // Función para actualizar el panel de información
         function showInfo(sectionKey) {
-            // Ocultar mensaje por defecto
             document.getElementById('default-message').style.display = 'none';
-            
             const displayPanel = document.getElementById('content-display');
             
-            // Reiniciar animación
             displayPanel.classList.remove('hidden');
             displayPanel.classList.remove('fade-in');
-            void displayPanel.offsetWidth; // Trigger reflow
+            void displayPanel.offsetWidth;
             displayPanel.classList.add('fade-in');
 
-            // Obtener datos
             const info = data[sectionKey];
-
-            // Actualizar DOM
             const badge = document.getElementById('badge');
+            
             badge.className = `inline-block px-3 py-1 text-xs font-semibold rounded-full mb-3 ${info.badgeColor}`;
             badge.innerText = info.badge;
             
             document.getElementById('content-title').innerText = info.title;
             document.getElementById('content-body').innerHTML = info.body;
         }
-        <div class="faq-container">
-    <div class="faq-header">
-        <h3>Reflexión y Cierre</h3>
-        <p>Sistema Táctico Básico Policial</p>
-    </div>
-    
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <div class="faq-question">
-            <span>¿Cómo influye la integración de estos elementos en la labor policial?</span>
-            <span class="faq-icon">▼</span>
-        </div>
-        <div class="faq-answer">
-            <p>Permite una toma de decisiones más estructurada, garantizando que el uso de la fuerza esté siempre respaldado por la preparación mental, táctica y comunicativa, bajo un marco de total respeto por los derechos humanos y la normativa vigente.</p>
-        </div>
-    </div>
-
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <div class="faq-question">
-            <span>¿En qué situaciones prácticas puede aplicar estas relaciones?</span>
-            <span class="faq-icon">▼</span>
-        </div>
-        <div class="faq-answer">
-            <p>Se aplican en procedimientos de control de multitudes, intervenciones en flagrancia, reducciones de personas agresivas y resolución de conflictos ciudadanos donde se requiera el uso diferenciado y proporcional de la fuerza.</p>
-        </div>
-    </div>
-
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-        <div class="faq-question">
-            <span>¿Qué aspectos del Sistema Táctico Básico requieren mayor estudio y práctica?</span>
-            <span class="faq-icon">▼</span>
-        </div>
-        <div class="faq-answer">
-            <p>El fortalecimiento de la comunicación asertiva para la disuasión verbal y el entrenamiento constante en la transición fluida entre las diferentes armas menos letales y las técnicas de control físico.</p>
-        </div>
-    </div>
-</div>
-
-<style>
-.faq-container {
-    max-width: 800px;
-    margin: 30px auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #fdfdfd;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.faq-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.faq-header h3 {
-    color: #1b365d;
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.faq-header p {
-    color: #555;
-    margin: 5px 0 0 0;
-    font-size: 0.95rem;
-}
-
-.faq-item {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #1b365d;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    padding: 16px 20px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.faq-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(27, 54, 93, 0.08);
-    border-color: #cbd5e1;
-}
-
-.faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    color: #1e293b;
-    font-size: 1.05rem;
-}
-
-.faq-icon {
-    font-size: 0.8rem;
-    color: #64748b;
-    transition: transform 0.3s ease;
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease;
-    opacity: 0;
-    color: #475569;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.faq-item.active {
-    border-left-color: #0ea5e9;
-    background: #f8fafc;
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(180deg);
-    color: #0ea5e9;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 200px;
-    opacity: 1;
-    margin-top: 12px;
-    padding-top: 8px;
-    border-top: 1px dashed #e2e8f0;
-}
-</style>
     </script>
 </body>
 </html>
